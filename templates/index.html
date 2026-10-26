@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AntiPhish AI - Plataforma de Ciberseguridad</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
+    <title>AntiPhish AI</title>
         :root { --bg-dark:#050505; --bg-panel:#0a0a0a; --accent:#00ff41; --danger:#ff003c; --warning:#ffaa00; --text:#e0e0e0; --text-dim:#888888; --border:#1a1a1a; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background-color:var(--bg-dark); color:var(--text); font-family:'Inter',sans-serif; overflow-x:hidden; }
@@ -36,15 +34,15 @@
         .form-group { margin-bottom:1.5rem; }
         .form-label { display:block; margin-bottom:0.5rem; color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.85rem; }
         textarea { width:100%; background:#000; border:1px solid var(--border); color:var(--text); font-family:'JetBrains Mono',monospace; padding:1rem; border-radius:4px; resize:vertical; min-height:150px; }
-        textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px var(--accent-glow); }
+        textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px rgba(0,255,65,0.3); }
         input[type="text"] { width:100%; background:#000; border:1px solid var(--border); color:var(--text); font-family:'JetBrains Mono',monospace; padding:1rem; border-radius:4px; }
-        input[type="text"]:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px var(--accent-glow); }
+        input[type="text"]:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px rgba(0,255,65,0.3); }
         .example-btns { display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem; }
         .example-btn { padding:0.6rem 1.2rem; background:transparent; border:1px solid var(--border); color:var(--text-dim); cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:0.8rem; transition:all 0.3s; border-radius:4px; }
         .example-btn:hover { border-color:var(--accent); color:var(--accent); }
         .example-btn.danger:hover { border-color:var(--danger); color:var(--danger); }
         .analyze-btn { width:100%; padding:1rem; background:linear-gradient(135deg,var(--accent),#00cc33); border:none; color:#000; font-family:'Inter',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; border-radius:4px; transition:all 0.3s; text-transform:uppercase; letter-spacing:1px; }
-        .analyze-btn:hover { box-shadow:0 0 25px var(--accent-glow); transform:translateY(-2px); }
+        .analyze-btn:hover { box-shadow:0 0 25px rgba(0,255,65,0.3); transform:translateY(-2px); }
         .analyze-btn:disabled { opacity:0.6; cursor:not-allowed; }
         .results-section { max-width:1400px; margin:0 auto 3rem; padding:0 2rem; display:none; }
         .results-section.visible { display:block; }
@@ -63,10 +61,12 @@
         .flag-safe { background:rgba(0,255,65,0.05); border-left:3px solid var(--accent); color:var(--accent); }
         .recommendation-box { background:linear-gradient(135deg, rgba(0,255,65,0.1), rgba(0,100,65,0.1)); border:1px solid var(--accent); border-radius:8px; padding:1.5rem; }
         .recommendation-box h4 { color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.9rem; margin-bottom:0.75rem; text-transform:uppercase; }
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
         .features-grid { max-width:1400px; margin:0 auto 4rem; padding:0 2rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; }
         .feature-card { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:2rem; transition:all 0.3s; position:relative; overflow:hidden; }
         .feature-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--accent); }
-        .feature-card:hover { border-color:var(--accent); transform:translateY(-5px); box-shadow:0 10px 30px var(--accent-glow); }
+        .feature-card:hover { border-color:var(--accent); transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,255,65,0.3); }
         .feature-icon { font-size:2rem; margin-bottom:1rem; }
         .feature-card h3 { color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:1rem; margin-bottom:1rem; text-transform:uppercase; }
         .feature-card p { color:var(--text-dim); font-size:0.9rem; line-height:1.6; }
@@ -99,19 +99,19 @@
             </div>
             <div class="nav-links">
                 <a href="#analyzer">Analizador</a>
-                <a href="#analytics">Analíticas</a>
-                <a href="#training">Capacitación</a>
+                <a href="#analytics">AnalÃ­ticas</a>
+                <a href="#training">CapacitaciÃ³n</a>
                 <a href="#siem">SIEM/SOAR</a>
                 <a href="#dmarc">DMARC</a>
             </div>
             <div class="nav-status">
-                <span id="system-status">● SISTEMA OPERATIVO</span>
+                <span id="system-status">â— SISTEMA OPERATIVO</span>
             </div>
         </div>
     </nav>
     <section class="hero">
         <h1>DETECTA PHISHING<br>ANTES DE HACER CLIC</h1>
-        <p>Plataforma de ciberseguridad para PyMEs y usuarios. Análisis en tiempo real de correos, URLs y amenazas de suplantación de identidad.</p>
+        <p>Plataforma de ciberseguridad para PyMEs y usuarios. AnÃ¡lisis en tiempo real de correos, URLs y amenazas de suplantaciÃ³n de identidad.</p>
         <div class="hero-stats">
             <div class="stat">
                 <span class="stat-value" id="stat-threats">0</span>
@@ -123,26 +123,26 @@
             </div>
             <div class="stat">
                 <span class="stat-value" id="stat-ups">99.8%</span>
-                <span class="stat-label">Precisión de detección</span>
+                <span class="stat-label">PrecisiÃ³n de detecciÃ³n</span>
             </div>
         </div>
     </section>
     <div class="tabs-container" id="analyzer">
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('email')">📧 CORREO / MENSAJE</button>
-            <button class="tab-btn" onclick="switchTab('url')">🔗 URL / ENLACE</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'email')">ðŸ“§ CORREO / MENSAJE</button>
+            <button class="tab-btn" onclick="switchTab(event, 'url')">ðŸ”— URL / ENLACE</button>
         </div>
         <div class="tab-panel active" id="panel-email">
             <div class="analysis-panel">
                 <div class="form-group">
                     <label class="form-label">CONTENIDO DEL CORREO O MENSAJE</label>
-                    <textarea id="email-input" placeholder="Pega aquí el contenido del correo o mensaje sospechoso..."></textarea>
+                    <textarea id="email-input" placeholder="Pega aquÃ­ el contenido del correo o mensaje sospechoso..."></textarea>
                 </div>
                 <div class="example-btns">
-                    <button class="example-btn" onclick="loadExample('safe-email')">✅ Correo seguro</button>
-                    <button class="example-btn danger" onclick="loadExample('phish-email')">⚠️ Phishing bancario</button>
+                    <button class="example-btn" onclick="loadExample('safe-email')">âœ… Correo seguro</button>
+                    <button class="example-btn danger" onclick="loadExample('phish-email')">âš ï¸ Phishing bancario</button>
                 </div>
-                <button class="analyze-btn" onclick="analyze('email')">EJECUTAR ANÁLISIS</button>
+                <button class="analyze-btn" onclick="analyze('email')">EJECUTAR ANÃLISIS</button>
             </div>
         </div>
         <div class="tab-panel" id="panel-url">
@@ -152,69 +152,69 @@
                     <input type="text" id="url-input" placeholder="https://ejemplo.com/pagina">
                 </div>
                 <div class="example-btns">
-                    <button class="example-btn" onclick="loadExample('safe-url')">✅ URL segura</button>
-                    <button class="example-btn danger" onclick="loadExample('phish-url')">⚠️ URL sospechosa</button>
+                    <button class="example-btn" onclick="loadExample('safe-url')">âœ… URL segura</button>
+                    <button class="example-btn danger" onclick="loadExample('phish-url')">âš ï¸ URL sospechosa</button>
                 </div>
-                <button class="analyze-btn" onclick="analyze('url')">EJECUTAR ANÁLISIS</button>
+                <button class="analyze-btn" onclick="analyze('url')">EJECUTAR ANÃLISIS</button>
             </div>
         </div>
     </div>
-    <div class="results-section visible" id="results-section">
+    <div class="results-section" id="results-section">
         <div class="result-header">
             <div>
-                <h2 style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.9rem; text-transform:uppercase;">RESULTADO DEL ANÁLISIS</h2>
-                <p id="result-type" style="color:var(--text-dim); font-size:0.85rem; margin-top:0.25rem;"></p>
+                <h2 style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.9rem; text-transform:uppercase">RESULTADO DEL ANÃLISIS</h2>
+                <p id="result-type" style="color:var(--text-dim); font-size:0.85rem; margin-top:0.25rem"></p>
             </div>
-            <div class="score-badge" id="score-badge" style="color:var(--accent);">0%</div>
+            <div class="score-badge" id="score-badge" style="color:var(--accent)">0%</div>
         </div>
         <div class="gauge-container">
             <svg class="gauge-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
                 <path d="M 20 80 A 160 160 0 0 1 180 80" stroke="#1a1a1a" stroke-width="12" fill="none" />
                 <path id="gauge-color" d="M 20 80 A 160 160 0 0 1 180 80" stroke="#00ff41" stroke-width="12" fill="none" stroke-dasharray="251" stroke-dashoffset="251" />
-                <text x="100" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#666">0% → 100%</text>
+                <text x="100" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#666">0% â†’ 100%</text>
             </svg>
-            <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#666; letter-spacing:2px;">
-                <span>SEGURO</span><span style="margin:0 2rem;">SOSPECHOSO</span><span>ALTO RIESGO</span>
+            <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#666; letter-spacing:2px">
+                <span>SEGURO</span><span style="margin:0 2rem">SOSPECHOSO</span><span>ALTO RIESGO</span>
             </div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <div class="level-badge" id="level-indicator" style="background:rgba(0,255,65,0.1); color:var(--accent); border:1px solid var(--accent);">SEGURO</div>
-            <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--text-dim);">SCORE DE RIESGO</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem">
+            <div class="level-badge" id="level-indicator" style="background:rgba(0,255,65,0.1); color:var(--accent); border:1px solid var(--accent)">SEGURO</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--text-dim)">SCORE DE RIESGO</div>
         </div>
         <div class="flags-section">
             <h3>BANDERAS DE ALERTA DETECTADAS</h3>
             <div id="flags-list"></div>
         </div>
         <div class="recommendation-box">
-            <h4>RECOMENDACIÓN DE ACCIÓN</h4>
-            <p id="recommendation-text" style="color:var(--text); font-size:0.9rem; line-height:1.6;"></p>
+            <h4>RECOMENDACIÃ“N DE ACCIÃ“N</h4>
+            <p id="recommendation-text" style="color:var(--text); font-size:0.9rem; line-height:1.6"></p>
         </div>
     </div>
     <section class="features-grid">
         <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Analíticas y Dashboards</h3>
-            <p>Visualización detallada de amenazas detectadas, tendencias de phishing, tiempo de respuesta y distribución por tipo de ataque en tiempo real.</p>
+            <div class="feature-icon">ðŸ“Š</div>
+            <h3>AnalÃ­ticas y Dashboards</h3>
+            <p>VisualizaciÃ³n detallada de amenazas detectadas, tendencias de phishing, tiempo de respuesta y distribuciÃ³n por tipo de ataque en tiempo real.</p>
         </div>
         <div class="feature-card warning">
-            <div class="feature-icon">🎯</div>
-            <h3>Simulación de Capacitación</h3>
-            <p>Plataforma de phishing simulado para entrenar empleados. Ejercicios prácticos con reportes de rendimiento y evaluación de vulnerabilidad humana.</p>
+            <div class="feature-icon">ðŸŽ¯</div>
+            <h3>SimulaciÃ³n de CapacitaciÃ³n</h3>
+            <p>Plataforma de phishing simulado para entrenar empleados. Ejercicios prÃ¡cticos con reportes de rendimiento y evaluaciÃ³n de vulnerabilidad humana.</p>
         </div>
         <div class="feature-card danger">
-            <div class="feature-icon">🔗</div>
-            <h3>Integración SIEM/SOAR</h3>
+            <div class="feature-icon">ðŸ”—</div>
+            <h3>IntegraciÃ³n SIEM/SOAR</h3>
             <p>Conecta con Splunk, Elastic, Sentinel y otras plataformas SIEM. Automatiza respuestas SOAR ante incidentes de phishing detectados en tiempo real.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon">🛡️</div>
-            <h3>Verificación DMARC</h3>
-            <p>Validación avanzada de dominio con registros DMARC, SPF y DKIM. Detecta suplantación de dominio y verifica autenticidad de remitentes de correo.</p>
+            <div class="feature-icon">ðŸ›¡ï¸</div>
+            <h3>VerificaciÃ³n DMARC</h3>
+            <p>ValidaciÃ³n avanzada de dominio con registros DMARC, SPF y DKIM. Detecta suplantaciÃ³n de dominio y verifica autenticidad de remitentes de correo.</p>
         </div>
     </section>
     <footer>
-        ANTIPHISH AI — SISTEMA DE DETECCIÓN DE AMENAZAS CIBERNÉTICAS<br>
-        CIFRADO DE EXTREMO A EXTREMO • SIN ALMACENAMIENTO DE DATOS • ANÁLISIS LOCAL
+        ANTIPHISH AI â€” SISTEMA DE DETECCIÃ“N DE AMENAZAS CIBERNÃ‰TICAS<br>
+        CIFRADO DE EXTREMO A EXTREMO â€¢ SIN ALMACENAMIENTO DE DATOS â€¢ ANÃLISIS LOCAL
     </footer>
     <script>
         const matrix = document.getElementById('matrix');
@@ -246,23 +246,22 @@
         let currentMode = 'email';
         let stats = { threats: 0, riskAvg: 0, count: 0 };
         const DETECTION = {
-            urgencyKeywords: ['urgente','inmediato','ahora','rápido','24 horas','límite','expira','bloqueada','suspendida','cierre permanente','actúa ya'],
+            urgencyKeywords: ['urgente','inmediato','ahora','rapido','24 horas','limite','expira','bloqueada','suspendida','cierre permanente','actua ya'],
             bankKeywords: ['banco','bbva','santander','chase','bank of america','well fargo','citibank','hsbc','scotiabank','banorte','banco nacional'],
-            ctaKeywords: ['haga clic aquí','clic aquí','haz clic aquí','click here','verificar identidad','actualizar cuenta','iniciar sesión'],
+            ctaKeywords: ['haga clic aqui','clic aqui','haz clic aqui','click here','verificar identidad','actualizar cuenta','iniciar sesion'],
             shorteners: ['bit.ly','tinyurl','t.co','goo.gl','ow.ly','buff.ly'],
             suspiciousTlds: ['.xyz','.tk','.ml','.ga','.cf','.top','.buzz','.link'],
             trustedBrands: ['paypal','amazon','apple','microsoft','google','facebook','instagram','netflix']
-        };
         function analyzeEmail(content) {
             const flags = []; let score = 0; const lower = content.toLowerCase();
             const urgencyHits = DETECTION.urgencyKeywords.filter(k => lower.includes(k));
-            if (urgencyHits.length > 0) { flags.push('Lenguaje de urgencia detectado: "' + urgencyHits[0] + '"'); score += 15; }
+            if (urgencyHits.length > 0) { flags.push('Lenguaje de urgencia: "' + urgencyHits[0] + '"'); score += 15; }
             const bankHits = DETECTION.bankKeywords.filter(k => lower.includes(k));
-            if (bankHits.length > 0) { flags.push('Posible suplantación bancaria: "' + bankHits[0] + '"'); score += 20; }
+            if (bankHits.length > 0) { flags.push('Posible suplantacion bancaria: "' + bankHits[0] + '"'); score += 20; }
             const ctaHits = DETECTION.ctaKeywords.filter(k => lower.includes(k));
-            if (ctaHits.length > 0) { flags.push('Llamada a la acción sospechosa: "' + ctaHits[0] + '"'); score += 15; }
+            if (ctaHits.length > 0) { flags.push('Llamada a la accion sospechosa: "' + ctaHits[0] + '"'); score += 15; }
             const shortenerHits = DETECTION.shorteners.filter(s => lower.includes(s));
-            if (shortenerHits.length > 0) { flags.push('Acortador de URL detectado: "' + shortenerHits[0] + '"'); score += 15; }
+            if (shortenerHits.length > 0) { flags.push('Acortador de URL: "' + shortenerHits[0] + '"'); score += 15; }
             const urlRegex = /https?:\/\/[^\s]+/g;
             const urls = content.match(urlRegex) || [];
             for (const url of urls) {
@@ -273,7 +272,7 @@
                     if (DETECTION.suspiciousTlds.includes(tld)) { flags.push('TLD de alto riesgo: ' + domain); score += 15; }
                     for (const brand of DETECTION.trustedBrands) {
                         if (domain.includes(brand) && domain !== brand + '.com' && !domain.endsWith('.' + brand + '.com')) {
-                            flags.push('Posible suplantación de marca: "' + brand + '" en ' + domain); score += 20; break;
+                            flags.push('Posible suplantacion de marca: ' + brand + ' en ' + domain); score += 20; break;
                         }
                     }
                 } catch(e) {}
@@ -288,16 +287,16 @@
                 const domain = parsed.hostname.toLowerCase();
                 const parts = domain.split('.');
                 const tld = '.' + parts[parts.length - 1];
-                if (parsed.protocol !== 'https:') { flags.push('La URL no usa HTTPS (falta cifrado TLS).'); score += 15; }
-                if (parts.length > 3) { flags.push('Exceso de subdominios: ' + (parts.length - 2) + ' detectados.'); score += 10; }
-                if (DETECTION.suspiciousTlds.includes(tld)) { flags.push('TLD de alto riesgo detectado: ' + tld); score += 15; }
+                if (parsed.protocol !== 'https:') { flags.push('La URL no usa HTTPS'); score += 15; }
+                if (parts.length > 3) { flags.push('Exceso de subdominios'); score += 10; }
+                if (DETECTION.suspiciousTlds.includes(tld)) { flags.push('TLD de alto riesgo: ' + tld); score += 15; }
                 for (const brand of DETECTION.trustedBrands) {
                     if (domain.includes(brand) && domain !== brand + '.com' && !domain.endsWith('.' + brand + '.com')) {
-                        flags.push('La marca \'' + brand + '\' aparece en el dominio pero no como titular principal (posible suplantación).'); score += 20; break;
+                        flags.push('Marca ' + brand + ' en dominio no oficial'); score += 20; break;
                     }
                 }
-                if (/[^a-zA-Z0-9.\-]/.test(domain)) { flags.push('Caracteres especiales sospechosos en el dominio.'); score += 10; }
-            } catch(e) { flags.push('URL inválida o mal formada.'); score += 30; }
+                if (/[^a-zA-Z0-9.\-]/.test(domain)) { flags.push('Caracteres especiales en dominio'); score += 10; }
+            } catch(e) { flags.push('URL invalida'); score += 30; }
             score = Math.min(100, score);
             return { score, flags };
         }
@@ -305,19 +304,18 @@
             if (score <= 30) return { level: 'SEGURO', cls: 'safe', color: '#00ff41' };
             if (score <= 69) return { level: 'SOSPECHOSO', cls: 'warning', color: '#ffaa00' };
             return { level: 'ALTO RIESGO', cls: 'danger', color: '#ff003c' };
-        }
-        function switchTab(mode) {
+        function switchTab(evt, mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            evt.currentTarget.classList.add('active');
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('panel-' + mode).classList.add('active');
             document.getElementById('results-section').style.display = 'none';
         }
         function loadExample(key) {
             const examples = {
-                'safe-email': 'Asunto: Confirmación de compra\n\nHola María,\n\nTe confirmamos que tu compra número #8821 ha sido procesada correctamente.\nEl monto total es de $45.000 y será entregado el próximo jueves.\n\nPuedes ver el detalle de tu pedido en tu cuenta, iniciando sesión normalmente\nen nuestra tienda online.\n\nGracias por confiar en nosotros.\n\n--\nAtención al Cliente\nTiendaOnline',
-                'phish-email': 'Asunto: URGENTE - Su cuenta ha sido bloqueada\n\nEstimado cliente,\n\nHemos detectado actividad inusual en su cuenta bancaria. Por motivos de\nseguridad, su acceso ha sido suspendido de manera temporal.\n\nPara evitar el cierre permanente de su cuenta, debe verificar su identidad\nen las próximas 24 horas haciendo clic aquí:\n\nhttp://bit.ly/verifica-bbva-urgente\n\nSi no actúa de inmediato, su cuenta será eliminada definitivamente.\n\nBanco Nacional - Departamento de Seguridad',
+                'safe-email': 'Asunto: Confirmacion de compra\n\nHola Maria,\n\nTe confirmamos que tu compra #8821 ha sido procesada correctamente.\nEl monto total es de $45.000 y sera entregado el proximo jueves.\n\nPuedes ver el detalle iniciando sesion en tu cuenta.\n\n--\nAtencion al Cliente',
+                'phish-email': 'Asunto: URGENTE - Su cuenta ha sido bloqueada\n\nEstimado cliente,\n\nHemos detectado actividad inusual en su cuenta bancaria.\nPara evitar el cierre permanente, verifique su identidad en las proximas 24 horas:\n\nhttp://bit.ly/verifica-bbva-urgente\n\nSi no actua, su cuenta sera eliminada.\n\nBanco Nacional - Seguridad',
                 'safe-url': 'https://www.google.com/search?q=como+me+protejo+del+phishing',
                 'phish-url': 'http://paypal-security-update.xyz/login/verificar-cuenta.php?user=12345'
             };
@@ -327,61 +325,75 @@
             } else {
                 document.getElementById('url-input').value = text;
             }
-        }
         function analyze(mode) {
             const inputId = mode === 'email' ? 'email-input' : 'url-input';
             const inputEl = document.getElementById(inputId);
             const content = inputEl.value.trim();
-            if (!content) { alert('Por favor, ingresa un texto o URL para analizar.'); inputEl.focus(); return; }
-            document.getElementById('loading').style.display = 'flex';
-            document.getElementById('results-section').style.display = 'none';
-            setTimeout(() => {
-                const result = mode === 'email' ? analyzeEmail(content) : analyzeUrl(content);
-                const level = getLevel(result.score);
-                const scoreEl = document.getElementById('score-badge');
-                const levelEl = document.getElementById('level-indicator');
-                const typeEl = document.getElementById('result-type');
-                const gaugeColorEl = document.getElementById('gauge-color');
-                const flagsEl = document.getElementById('flags-list');
-                const recEl = document.getElementById('recommendation-text');
-                typeEl.textContent = mode === 'email' ? 'Análisis de correo / mensaje de texto' : 'Análisis de URL / enlace web';
-                scoreEl.textContent = result.score + '%';
-                scoreEl.className = 'score-badge ' + (result.score <= 30 ? 'score-safe' : result.score <= 69 ? 'score-warning' : 'score-danger');
-                levelEl.textContent = level.level;
-                levelEl.className = 'level-badge level-' + level.cls;
-                const arcLength = 251;
-                const offset = arcLength - (result.score / 100) * arcLength;
-                gaugeColorEl.style.stroke = level.color;
-                gaugeColorEl.style.strokeDashoffset = offset;
-                flagsEl.innerHTML = '';
-                if (result.flags && result.flags.length > 0) {
-                    result.flags.forEach(flag => {
-                        const div = document.createElement('div');
-                        div.className = 'flag-item';
-                        div.textContent = '! ' + flag;
-                        flagsEl.appendChild(div);
-                    });
-                } else {
-                    const div = document.createElement('div');
-                    div.className = 'flag-item flag-safe';
-                    div.textContent = '✓ No se detectaron banderas de alerta.';
-                    flagsEl.appendChild(div);
-                }
-                const recs = {
-                    safe: 'El mensaje no muestra indicios evidentes de phishing. Mantén las precauciones habituales.',
-                    warning: 'Este mensaje presenta señales de alerta. No hagas clic en enlaces ni descargues adjuntos. Verifica el remitente por canales oficiales.',
-                    danger: '¡Peligro! Este es un intento de phishing. No interactúes con el contenido, elimina el mensaje y reporta al departamento de seguridad.'
-                };
-                recEl.textContent = recs[level.cls];
-                stats.count++;
-                stats.threats += (result.score >= 50 ? 1 : 0);
-                stats.riskAvg = Math.round((stats.riskAvg * (stats.count - 1) + result.score) / stats.count);
-                document.getElementById('stat-threats').textContent = stats.threats;
-                document.getElementById('stat-risk').textContent = stats.riskAvg + '%';
+            if (!content) {
+                alert('Por favor, ingresa un texto o URL para analizar.');
+                inputEl.focus();
+                return;
+            }
+            try {
+                document.getElementById('loading').style.display = 'flex';
+                document.getElementById('results-section').style.display = 'none';
+                setTimeout(() => {
+                    try {
+                        const result = mode === 'email' ? analyzeEmail(content) : analyzeUrl(content);
+                        const level = getLevel(result.score);
+                        const scoreEl = document.getElementById('score-badge');
+                        const levelEl = document.getElementById('level-indicator');
+                        const typeEl = document.getElementById('result-type');
+                        const gaugeColorEl = document.getElementById('gauge-color');
+                        const flagsEl = document.getElementById('flags-list');
+                        const recEl = document.getElementById('recommendation-text');
+                        typeEl.textContent = mode === 'email' ? 'Analisis de correo / mensaje de texto' : 'Analisis de URL / enlace web';
+                        scoreEl.textContent = result.score + '%';
+                        scoreEl.className = 'score-badge ' + (result.score <= 30 ? 'score-safe' : result.score <= 69 ? 'score-warning' : 'score-danger');
+                        levelEl.textContent = level.level;
+                        levelEl.className = 'level-badge level-' + level.cls;
+                        const arcLength = 251;
+                        const offset = arcLength - (result.score / 100) * arcLength;
+                        gaugeColorEl.style.stroke = level.color;
+                        gaugeColorEl.style.strokeDashoffset = offset;
+                        flagsEl.innerHTML = '';
+                        if (result.flags && result.flags.length > 0) {
+                            result.flags.forEach(flag => {
+                                const div = document.createElement('div');
+                                div.className = 'flag-item';
+                                div.textContent = '! ' + flag;
+                                flagsEl.appendChild(div);
+                            });
+                        } else {
+                            const div = document.createElement('div');
+                            div.className = 'flag-item flag-safe';
+                            div.textContent = 'OK No se detectaron banderas de alerta.';
+                            flagsEl.appendChild(div);
+                        }
+                        const recs = {
+                            safe: 'El mensaje no muestra indicios evidentes de phishing.',
+                            warning: 'Este mensaje presenta senales de alerta. No hagas clic en enlaces.',
+                            danger: 'Â¡Peligro! Intento de phishing. No interactÃºes con el contenido.'
+                        };
+                        recEl.textContent = recs[level.cls];
+                        stats.count++;
+                        stats.threats += (result.score >= 50 ? 1 : 0);
+                        stats.riskAvg = Math.round((stats.riskAvg * (stats.count - 1) + result.score) / stats.count);
+                        document.getElementById('stat-threats').textContent = stats.threats;
+                        document.getElementById('stat-risk').textContent = stats.riskAvg + '%';
+                    } catch(e) {
+                        console.error('Analysis error:', e);
+                        alert('Error al analizar: ' + e.message);
+                    } finally {
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('results-section').style.display = 'block';
+                        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 1200);
+            } catch(e) {
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('results-section').style.display = 'block';
-                document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-            }, 1200);
+                alert('Error: ' + e.message);
+            }
         }
         document.getElementById('email-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); analyze('email'); }
