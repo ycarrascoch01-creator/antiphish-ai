@@ -1,117 +1,167 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AntiPhish AI</title>
-        :root { --bg-dark:#050505; --bg-panel:#0a0a0a; --accent:#00ff41; --danger:#ff003c; --warning:#ffaa00; --text:#e0e0e0; --text-dim:#888888; --border:#1a1a1a; }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background-color:var(--bg-dark); color:var(--text); font-family:'Inter',sans-serif; overflow-x:hidden; }
-        .matrix-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.15; pointer-events:none; }
-        nav { background:rgba(5,5,5,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; padding:1rem 2rem; }
-        .nav-container { max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
-        .logo { display:flex; align-items:center; gap:0.75rem; font-family:'JetBrains Mono',monospace; font-weight:800; font-size:1.5rem; color:var(--accent); }
-        .logo-dot { width:12px; height:12px; background:var(--accent); border-radius:50%; box-shadow:0 0 15px var(--accent); animation:pulse 2s infinite; }
-        .nav-links { display:flex; gap:2rem; }
-        .nav-links a { color:var(--text-dim); text-decoration:none; font-size:0.9rem; transition:color 0.3s; font-family:'JetBrains Mono',monospace; }
-        .nav-links a:hover { color:var(--accent); }
-        .nav-status { font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--accent); }
-        .hero { padding:4rem 2rem; text-align:center; }
-        .hero h1 { font-family:'Inter',sans-serif; font-size:3.5rem; font-weight:800; margin-bottom:1rem; background:linear-gradient(135deg,#fff,var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .hero p { color:var(--text-dim); font-size:1.2rem; max-width:600px; margin:0 auto 2rem; }
-        .hero-stats { display:flex; justify-content:center; gap:3rem; margin-top:2rem; border-top:1px solid var(--border); padding-top:2rem; }
-        .stat { text-align:center; }
-        .stat-value { display:block; font-family:'JetBrains Mono',monospace; font-size:2rem; color:var(--accent); font-weight:700; }
-        .stat-label { font-size:0.8rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; }
-        .tabs-container { max-width:1400px; margin:0 auto 3rem; padding:0 2rem; }
-        .tabs { display:flex; gap:0; background:var(--bg-panel); border:1px solid var(--border); overflow:hidden; }
-        .tab-btn { flex:1; padding:1.25rem; background:transparent; border:none; color:var(--text-dim); cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:0.9rem; transition:all 0.3s; border-right:1px solid var(--border); }
-        .tab-btn:hover { color:var(--accent); background:rgba(0,255,65,0.05); }
-        .tab-btn.active { color:var(--accent); background:rgba(0,255,65,0.1); border-bottom:3px solid var(--accent); }
-        .tab-panel { display:none; animation:fadeIn 0.4s ease; }
-        .tab-panel.active { display:block; }
-        .analysis-panel { max-width:800px; margin:0 auto; background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:2.5rem; }
-        .form-group { margin-bottom:1.5rem; }
-        .form-label { display:block; margin-bottom:0.5rem; color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.85rem; }
-        textarea { width:100%; background:#000; border:1px solid var(--border); color:var(--text); font-family:'JetBrains Mono',monospace; padding:1rem; border-radius:4px; resize:vertical; min-height:150px; }
-        textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px rgba(0,255,65,0.3); }
-        input[type="text"] { width:100%; background:#000; border:1px solid var(--border); color:var(--text); font-family:'JetBrains Mono',monospace; padding:1rem; border-radius:4px; }
-        input[type="text"]:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px rgba(0,255,65,0.3); }
-        .example-btns { display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem; }
-        .example-btn { padding:0.6rem 1.2rem; background:transparent; border:1px solid var(--border); color:var(--text-dim); cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:0.8rem; transition:all 0.3s; border-radius:4px; }
-        .example-btn:hover { border-color:var(--accent); color:var(--accent); }
-        .example-btn.danger:hover { border-color:var(--danger); color:var(--danger); }
-        .analyze-btn { width:100%; padding:1rem; background:linear-gradient(135deg,var(--accent),#00cc33); border:none; color:#000; font-family:'Inter',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; border-radius:4px; transition:all 0.3s; text-transform:uppercase; letter-spacing:1px; }
-        .analyze-btn:hover { box-shadow:0 0 25px rgba(0,255,65,0.3); transform:translateY(-2px); }
-        .analyze-btn:disabled { opacity:0.6; cursor:not-allowed; }
-        .results-section { max-width:1400px; margin:0 auto 3rem; padding:0 2rem; display:none; }
-        .results-section.visible { display:block; }
-        .result-header { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:1.5rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; }
-        .score-badge { font-family:'JetBrains Mono',monospace; font-size:3rem; font-weight:800; }
-        .score-safe { color:var(--accent); } .score-warning { color:var(--warning); } .score-danger { color:var(--danger); }
-        .level-badge { padding:0.5rem 1rem; border-radius:4px; font-family:'JetBrains Mono',monospace; font-weight:700; text-transform:uppercase; }
-        .level-safe { background:rgba(0,255,65,0.1); color:var(--accent); border:1px solid var(--accent); }
-        .level-warning { background:rgba(255,170,0,0.1); color:var(--warning); border:1px solid var(--warning); }
-        .level-danger { background:rgba(255,0,60,0.1); color:var(--danger); border:1px solid var(--danger); }
-        .gauge-container { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:2rem; margin-bottom:2rem; text-align:center; }
-        .gauge-svg { width:100%; max-width:300px; }
-        .flags-section, .recommendation-section { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:2rem; }
-        .flags-section h3, .recommendation-section h3 { color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.9rem; margin-bottom:1rem; text-transform:uppercase; }
-        .flag-item { background:rgba(255,0,60,0.05); border-left:3px solid var(--danger); padding:0.75rem 1rem; margin-bottom:0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--text); }
-        .flag-safe { background:rgba(0,255,65,0.05); border-left:3px solid var(--accent); color:var(--accent); }
-        .recommendation-box { background:linear-gradient(135deg, rgba(0,255,65,0.1), rgba(0,100,65,0.1)); border:1px solid var(--accent); border-radius:8px; padding:1.5rem; }
-        .recommendation-box h4 { color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.9rem; margin-bottom:0.75rem; text-transform:uppercase; }
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>AntiPhish AI - Deteccion de Phishing</title>
     <style>
-        .features-grid { max-width:1400px; margin:0 auto 4rem; padding:0 2rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; }
-        .feature-card { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:2rem; transition:all 0.3s; position:relative; overflow:hidden; }
-        .feature-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--accent); }
-        .feature-card:hover { border-color:var(--accent); transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,255,65,0.3); }
-        .feature-icon { font-size:2rem; margin-bottom:1rem; }
-        .feature-card h3 { color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:1rem; margin-bottom:1rem; text-transform:uppercase; }
-        .feature-card p { color:var(--text-dim); font-size:0.9rem; line-height:1.6; }
-        .feature-card.danger::before { background:var(--danger); } .feature-card.danger h3 { color:var(--danger); }
-        .feature-card.warning::before { background:var(--warning); } .feature-card.warning h3 { color:var(--warning); }
-        footer { background:#000; border-top:1px solid var(--border); padding:2rem; text-align:center; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:0.8rem; }
-        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
-        .scanline { position:fixed; top:0; left:0; width:100%; height:2px; background:linear-gradient(transparent, var(--accent), transparent); z-index:9999; animation:scanline 3s linear infinite; pointer-events:none; opacity:0.5; }
-        @keyframes scanline { 0% { transform:translateY(-100%); } 100% { transform:translateY(100%); } }
-        .loading-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10000; justify-content:center; align-items:center; flex-direction:column; }
-        .loader { width:40px; height:40px; border:3px solid var(--border); border-top:3px solid var(--accent); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:1rem; }
-        .loading-text { font-family:'JetBrains Mono',monospace; color:var(--accent); }
-        @media (max-width:768px) { .hero h1 { font-size:2.5rem; } .nav-links { display:none; } .tabs { flex-direction:column; } .tab-btn { border-right:none; border-bottom:1px solid var(--border); } }
+        :root {
+            --bg-dark: #050505;
+            --bg-panel: #0a0a0a;
+            --accent: #00ff41;
+            --danger: #ff003c;
+            --warning: #ffaa00;
+            --text: #e0e0e0;
+            --text-dim: #888888;
+            --border: #1a1a1a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        canvas { display: block; }
+        nav {
+            background: rgba(5,5,5,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0; z-index: 100;
+            padding: 1rem 2rem;
+        }
+        .nav-container {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-family: 'JetBeans Mono', monospace;
+            font-weight: 800; font-size: 1.5rem;
+            color: var(--accent);
+        }
+        .logo .logo-dot {
+            width: 12px; height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+            animation: pulse 2s infinite;
+        }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
     </style>
 </head>
 <body>
-    <div class="matrix-bg" id="matrix"></div>
-    <div class="scanline"></div>
-    <div class="loading-overlay" id="loading">
-        <div class="loader"></div>
-        <div class="loading-text">ANALIZANDO AMENAZAS...</div>
-    </div>
+    <canvas id="matrix"></canvas>
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-dot"></div>
-                ANTIPHISH<span style="color:#fff">AI</span>
+                <span class="logo-dot"></span>
+                ANTIPHISH AI
             </div>
             <div class="nav-links">
+                <a href="#features">Funcionalidades</a>
                 <a href="#analyzer">Analizador</a>
-                <a href="#analytics">AnalÃ­ticas</a>
-                <a href="#training">CapacitaciÃ³n</a>
-                <a href="#siem">SIEM/SOAR</a>
-                <a href="#dmarc">DMARC</a>
+                <a href="#training">Capacitacion</a>
             </div>
             <div class="nav-status">
-                <span id="system-status">â— SISTEMA OPERATIVO</span>
+                <span id="system-status">● En Linea</span>
             </div>
         </div>
     </nav>
+
+    <style>
+        .hero { padding: 4rem 2rem; text-align: center; }
+        .hero h1 {
+            font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { color: var(--text-dim); font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; }
+        .hero .hero-stats { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+        .stat { text-align: center; }
+        .stat-value { display: block; font-family: 'JetBrains Mono', monospace; font-size: 2rem; color: var(--accent); font-weight: 700; }
+        .stat-label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+        .tabs-container { max-width: 1400px; margin: 0 auto 3rem; padding: 0 2rem; }
+        .tabs { display: flex; gap: 0; background: var(--bg-panel); border: 1px solid var(--border); overflow: hidden; }
+        .tab-btn { flex: 1; padding: 1.25rem; background: transparent; border: none; color: var(--text-dim); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; transition: all 0.3s; border-right: 1px solid var(--border); }
+        .tab-btn:hover { color: var(--accent); background: rgba(0,255,65,0.05); }
+        .tab-btn.active { color: var(--accent); background: rgba(0,255,65,0.1); border-bottom: 3px solid var(--accent); }
+        .tab-panel { display: none; animation: fadeIn 0.4s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .analysis-panel { max-width: 800px; margin: 0 auto; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+        textarea { width: 100%; background: #000; border: 1px solid var(--border); color: var(--text); font-family: 'JetBrains Mono', monospace; padding: 1rem; border-radius: 4px; resize: vertical; min-height: 150px; }
+        textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(0,255,65,0.3); }
+        input[type="text"] { width: 100%; background: #000; border: 1px solid var(--border); color: var(--text); font-family: 'JetBrains Mono', monospace; padding: 1rem; border-radius: 4px; }
+        input[type="text"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(0,255,65,0.3); }
+        .example-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .example-btn { padding: 0.6rem 1.2rem; background: transparent; border: 1px solid var(--border); color: var(--text-dim); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; transition: all 0.3s; border-radius: 4px; }
+        .example-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .example-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+        .analyze-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--accent), #00cc33); border: none; color: #000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; border-radius: 4px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .analyze-btn:hover { box-shadow: 0 0 25px rgba(0,255,65,0.3); transform: translateY(-2px); }
+        .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; flex-direction: column; }
+        .loading-dots { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .loading-dot { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; animation: loadingPulse 0.8s ease-in-out infinite both; }
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes loadingPulse { 0%, 80%, 100% { transform: scale(0); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+    </style>
+    <style>
+        .results-section { max-width: 1400px; margin: 0 auto 3rem; padding: 0 2rem; display: none; }
+        .results-section.visible { display: block; }
+        .result-header { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .score-badge { font-family: 'JetBrains Mono', monospace; font-size: 3rem; font-weight: 800; }
+        .score-safe { color: var(--accent); }
+        .score-warning { color: var(--warning); }
+        .score-danger { color: var(--danger); }
+        .level-badge { padding: 0.5rem 1rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-weight: 700; text-transform: uppercase; }
+        .level-safe { background: rgba(0,255,65,0.1); color: var(--accent); border: 1px solid var(--accent); }
+        .level-warning { background: rgba(255,170,0,0.1); color: var(--warning); border: 1px solid var(--warning); }
+        .level-danger { background: rgba(255,0,60,0.1); color: var(--danger); border: 1px solid var(--danger); }
+        .gauge-container { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .gauge-svg { width: 100%; max-width: 300px; }
+        .flags-section, .recommendation-section { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .flags-section h3, .recommendation-section h3 { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 1rem; text-transform: uppercase; }
+        .flag-item { background: rgba(255,0,60,0.05); border-left: 3px solid var(--danger); padding: 0.75rem 1rem; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text); }
+        .flag-safe { background: rgba(0,255,65,0.05); border-left: 3px solid var(--accent); color: var(--accent); }
+        .recommendation-box { background: linear-gradient(135deg, rgba(0,255,65,0.1), rgba(0,100,65,0.1)); border: 1px solid var(--accent); border-radius: 8px; padding: 1.5rem; }
+        .recommendation-box h4 { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 0.75rem; text-transform: uppercase; }
+        .features { max-width: 1400px; margin: 0 auto 3rem; padding: 0 2rem; }
+        .features h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .feature-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; text-align: center; transition: all 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 0 25px rgba(0,255,65,0.1); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--accent); }
+        .feature-card p { color: var(--text-dim); font-size: 0.9rem; }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    </style>
+
     <section class="hero">
-        <h1>DETECTA PHISHING<br>ANTES DE HACER CLIC</h1>
-        <p>Plataforma de ciberseguridad para PyMEs y usuarios. AnÃ¡lisis en tiempo real de correos, URLs y amenazas de suplantaciÃ³n de identidad.</p>
+        <h1>AntiPhish AI</h1>
+        <p>Plataforma de ciberseguridad. Analisis en tiempo real de correos, URLs y amenazas de suplantacion de identidad.</p>
         <div class="hero-stats">
             <div class="stat">
                 <span class="stat-value" id="stat-threats">0</span>
@@ -122,103 +172,123 @@
                 <span class="stat-label">Nivel de riesgo promedio</span>
             </div>
             <div class="stat">
-                <span class="stat-value" id="stat-ups">99.8%</span>
-                <span class="stat-label">PrecisiÃ³n de detecciÃ³n</span>
+                <span class="stat-value">99.8%</span>
+                <span class="stat-label">Precision de deteccion</span>
             </div>
         </div>
     </section>
-    <div class="tabs-container" id="analyzer">
+
+    <div class="tabs-container">
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab(event, 'email')">ðŸ“§ CORREO / MENSAJE</button>
-            <button class="tab-btn" onclick="switchTab(event, 'url')">ðŸ”— URL / ENLACE</button>
-        </div>
-        <div class="tab-panel active" id="panel-email">
-            <div class="analysis-panel">
-                <div class="form-group">
-                    <label class="form-label">CONTENIDO DEL CORREO O MENSAJE</label>
-                    <textarea id="email-input" placeholder="Pega aquÃ­ el contenido del correo o mensaje sospechoso..."></textarea>
-                </div>
-                <div class="example-btns">
-                    <button class="example-btn" onclick="loadExample('safe-email')">âœ… Correo seguro</button>
-                    <button class="example-btn danger" onclick="loadExample('phish-email')">âš ï¸ Phishing bancario</button>
-                </div>
-                <button class="analyze-btn" onclick="analyze('email')">EJECUTAR ANÃLISIS</button>
-            </div>
-        </div>
-        <div class="tab-panel" id="panel-url">
-            <div class="analysis-panel">
-                <div class="form-group">
-                    <label class="form-label">URL O ENLACE WEB</label>
-                    <input type="text" id="url-input" placeholder="https://ejemplo.com/pagina">
-                </div>
-                <div class="example-btns">
-                    <button class="example-btn" onclick="loadExample('safe-url')">âœ… URL segura</button>
-                    <button class="example-btn danger" onclick="loadExample('phish-url')">âš ï¸ URL sospechosa</button>
-                </div>
-                <button class="analyze-btn" onclick="analyze('url')">EJECUTAR ANÃLISIS</button>
-            </div>
+            <button class="tab-btn active" onclick="switchTab(event, 'email')">&#128364; Correo / Mensaje</button>
+            <button class="tab-btn" onclick="switchTab(event, 'url')">&#128171; URL / Enlace</button>
         </div>
     </div>
+
+    <div id="panel-email" class="tab-panel active">
+        <div class="analysis-panel">
+            <div class="form-group">
+                <label class="form-label">CONTENIDO DEL CORREO O MENSAJE</label>
+                <textarea id="email-input" placeholder="Pega aqui el contenido del correo o mensaje sospechoso..."></textarea>
+            </div>
+            <div class="example-btns">
+                <button class="example-btn" onclick="loadExample('safe-email')">&#9985; Correo seguro</button>
+                <button class="example-btn danger" onclick="loadExample('phish-email')">&#9888; Phishing bancario</button>
+            </div>
+            <button class="analyze-btn" onclick="analyze('email')">EJECUTAR ANALISIS</button>
+        </div>
+    </div>
+
+    <div id="panel-url" class="tab-panel">
+        <div class="analysis-panel">
+            <div class="form-group">
+                <label class="form-label">URL O ENLACE WEB</label>
+                <input type="text" id="url-input" placeholder="https://ejemplo.com/pagina">
+            </div>
+            <div class="example-btns">
+                <button class="example-btn" onclick="loadExample('safe-url')">&#9985; URL segura</button>
+                <button class="example-btn danger" onclick="loadExample('phish-url')">&#9888; URL sospechosa</button>
+            </div>
+            <button class="analyze-btn" onclick="analyze('url')">EJECUTAR ANALISIS</button>
+        </div>
+    </div>
+
     <div class="results-section" id="results-section">
         <div class="result-header">
-            <div>
-                <h2 style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.9rem; text-transform:uppercase">RESULTADO DEL ANÃLISIS</h2>
-                <p id="result-type" style="color:var(--text-dim); font-size:0.85rem; margin-top:0.25rem"></p>
+            <h2 id="result-type"></h2>
+            <div id="risk-display">
+                <span class="score-badge score-safe" id="score-badge">0%</span>
+                <span class="level-badge level-safe" id="level-indicator">SAFE</span>
             </div>
-            <div class="score-badge" id="score-badge" style="color:var(--accent)">0%</div>
         </div>
         <div class="gauge-container">
-            <svg class="gauge-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
-                <path d="M 20 80 A 160 160 0 0 1 180 80" stroke="#1a1a1a" stroke-width="12" fill="none" />
-                <path id="gauge-color" d="M 20 80 A 160 160 0 0 1 180 80" stroke="#00ff41" stroke-width="12" fill="none" stroke-dasharray="251" stroke-dashoffset="251" />
-                <text x="100" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#666">0% â†’ 100%</text>
+            <svg class="gauge-svg" viewBox="0 0 100 50">
+                <path d="M8,42 A42,42 0 0,1 92,42" fill="none" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/>
+                <path d="M8,42 A42,42 0 0,1 92,42" fill="none" id="gauge-color" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" transform="translate(0,0)"/>
             </svg>
-            <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#666; letter-spacing:2px">
-                <span>SEGURO</span><span style="margin:0 2rem">SOSPECHOSO</span><span>ALTO RIESGO</span>
+            <div style="margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-dim);">
+                <span style="color: var(--accent);">SEGURO</span>
+                <span style="margin: 0 2rem;">SOSPECHOSO</span>
+                <span>ALTO RIESGO</span>
             </div>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem">
-            <div class="level-badge" id="level-indicator" style="background:rgba(0,255,65,0.1); color:var(--accent); border:1px solid var(--accent)">SEGURO</div>
-            <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--text-dim)">SCORE DE RIESGO</div>
         </div>
         <div class="flags-section">
             <h3>BANDERAS DE ALERTA DETECTADAS</h3>
             <div id="flags-list"></div>
         </div>
-        <div class="recommendation-box">
-            <h4>RECOMENDACIÃ“N DE ACCIÃ“N</h4>
-            <p id="recommendation-text" style="color:var(--text); font-size:0.9rem; line-height:1.6"></p>
+        <div class="recommendation-section">
+            <div class="recommendation-box">
+                <h4>RECOMENDACION DE ACCION</h4>
+                <p id="recommendation-text"></p>
+            </div>
         </div>
     </div>
-    <section class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">ðŸ“Š</div>
-            <h3>AnalÃ­ticas y Dashboards</h3>
-            <p>VisualizaciÃ³n detallada de amenazas detectadas, tendencias de phishing, tiempo de respuesta y distribuciÃ³n por tipo de ataque en tiempo real.</p>
+
+    <div class="loading-overlay" id="loading">
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
         </div>
-        <div class="feature-card warning">
-            <div class="feature-icon">ðŸŽ¯</div>
-            <h3>SimulaciÃ³n de CapacitaciÃ³n</h3>
-            <p>Plataforma de phishing simulado para entrenar empleados. Ejercicios prÃ¡cticos con reportes de rendimiento y evaluaciÃ³n de vulnerabilidad humana.</p>
+        <div style="color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 1rem;">Analizando...</div>
+    </div>
+
+    <div class="features">
+        <h2>Caracteristicas</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#128202;</div>
+                <h3>Analiticas en Tiempo Real</h3>
+                <p>Visualizacion de amenazas, tendencias de phishing y datos de respuesta.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#127926;</div>
+                <h3>Simulacion de Capacitacion</h3>
+                <p>Entrena a empleados con ejercicios practicos de phishing simulado.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128174;</div>
+                <h3>Integracion SIEM/SOAR</h3>
+                <p>Conecta con Splunk, Elastic, Sentinel y plataformas SIEM.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128774;</div>
+                <h3>Verificacion DMARC</h3>
+                <p>Valida registros DMARC, SPF y DKIM de tu dominio.</p>
+            </div>
         </div>
-        <div class="feature-card danger">
-            <div class="feature-icon">ðŸ”—</div>
-            <h3>IntegraciÃ³n SIEM/SOAR</h3>
-            <p>Conecta con Splunk, Elastic, Sentinel y otras plataformas SIEM. Automatiza respuestas SOAR ante incidentes de phishing detectados en tiempo real.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">ðŸ›¡ï¸</div>
-            <h3>VerificaciÃ³n DMARC</h3>
-            <p>ValidaciÃ³n avanzada de dominio con registros DMARC, SPF y DKIM. Detecta suplantaciÃ³n de dominio y verifica autenticidad de remitentes de correo.</p>
-        </div>
-    </section>
+    </div>
+
     <footer>
-        ANTIPHISH AI â€” SISTEMA DE DETECCIÃ“N DE AMENAZAS CIBERNÃ‰TICAS<br>
-        CIFRADO DE EXTREMO A EXTREMO â€¢ SIN ALMACENAMIENTO DE DATOS â€¢ ANÃLISIS LOCAL
+        ANTIPHISH AI -- Sistema de Deteccion de Amenazas Ciberneticas<br>
+        Cifrado de Extremo a Extremo -- Sin Almacenamiento de Datos -- Analisis Local
     </footer>
+
     <script>
+        // Matrix Animation
         const matrix = document.getElementById('matrix');
         const ctx = matrix.getContext('2d');
+
         matrix.width = window.innerWidth;
         matrix.height = window.innerHeight;
         const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*";
@@ -227,7 +297,7 @@
         const drops = [];
         for (let i = 0; i < columns; i++) drops[i] = 1;
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
+            ctx.fillStyle = 'rgba(5,5,5,0.05)';
             ctx.fillRect(0, 0, matrix.width, matrix.height);
             ctx.fillStyle = '#00ff41';
             ctx.font = fontSize + 'px JetBrains Mono';
@@ -252,6 +322,8 @@
             shorteners: ['bit.ly','tinyurl','t.co','goo.gl','ow.ly','buff.ly'],
             suspiciousTlds: ['.xyz','.tk','.ml','.ga','.cf','.top','.buzz','.link'],
             trustedBrands: ['paypal','amazon','apple','microsoft','google','facebook','instagram','netflix']
+        };
+
         function analyzeEmail(content) {
             const flags = []; let score = 0; const lower = content.toLowerCase();
             const urgencyHits = DETECTION.urgencyKeywords.filter(k => lower.includes(k));
@@ -304,6 +376,8 @@
             if (score <= 30) return { level: 'SEGURO', cls: 'safe', color: '#00ff41' };
             if (score <= 69) return { level: 'SOSPECHOSO', cls: 'warning', color: '#ffaa00' };
             return { level: 'ALTO RIESGO', cls: 'danger', color: '#ff003c' };
+        }
+
         function switchTab(evt, mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -325,6 +399,8 @@
             } else {
                 document.getElementById('url-input').value = text;
             }
+        }
+
         function analyze(mode) {
             const inputId = mode === 'email' ? 'email-input' : 'url-input';
             const inputEl = document.getElementById(inputId);
@@ -373,7 +449,7 @@
                         const recs = {
                             safe: 'El mensaje no muestra indicios evidentes de phishing.',
                             warning: 'Este mensaje presenta senales de alerta. No hagas clic en enlaces.',
-                            danger: 'Â¡Peligro! Intento de phishing. No interactÃºes con el contenido.'
+                            danger: '¡Peligro! Intento de phishing. No interactúes con el contenido.'
                         };
                         recEl.textContent = recs[level.cls];
                         stats.count++;
