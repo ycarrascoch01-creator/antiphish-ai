@@ -99,6 +99,7 @@ def analyze_email(text: str) -> dict[str, Any]:
         "cta_hits": [],
         "deceptive_links": [],
         "suspicious_urls": [],
+        "suspicious_url_hits": [],
     }
 
     text_lower = text.lower()
@@ -140,9 +141,11 @@ def analyze_email(text: str) -> dict[str, Any]:
         # Verificar si la URL usa un acortador
         if any(s in url_lower for s in ["bit.ly", "tinyurl", "t.co", "goo.gl"]):
             flags.append(f"URL acortada sospechosa: {url}")
+            details["suspicious_url_hits"].append(f"Acortador: {url}")
         # Verificar TLD sospechosos
         if any(tld in url_lower for tld in SUSPICIOUS_TLDS):
             flags.append(f"Dominio con TLD sospechoso: {url}")
+            details["suspicious_url_hits"].append(f"TLD sospechoso: {url}")
 
     # --- Cálculo del puntaje ---
     score = 0
@@ -150,6 +153,7 @@ def analyze_email(text: str) -> dict[str, Any]:
     score += min(len(details["bank_spoofing_hits"]) * 10, 25)
     score += min(len(details["cta_hits"]) * 8, 25)
     score += min(len(details["deceptive_links"]) * 10, 20)
+    score += min(len(details["suspicious_url_hits"]) * 35, 70)
     score = min(score, 100)
 
     level = _score_level(score)
