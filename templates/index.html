@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -30,6 +30,10 @@ nav{background:rgba(5,5,5,0.95);backdrop-filter:blur(10px);border-bottom:1px sol
 .tab-btn:hover{color:var(--accent);background:rgba(0,255,65,0.05);}
 .tab-btn.active{color:var(--accent);background:rgba(0,255,65,0.1);border-bottom:3px solid var(--accent);}
 .tab-panel{display:none;animation:fadeIn 0.4s ease;}
+.tab-panel.active{display:block;}
+</style>
+</head>
+<body>
 .analysis-panel{max-width:800px;margin:0 auto;background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:2.5rem;}
 .form-group{margin-bottom:1.5rem;}
 .form-label{display:block;margin-bottom:0.5rem;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.85rem;}
@@ -44,11 +48,6 @@ input[type="text"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .analyze-btn{width:100%;padding:1rem;background:linear-gradient(135deg,var(--accent),#00cc33);border:none;color:#000;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border-radius:4px;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px;}
 .analyze-btn:hover{box-shadow:0 0 25px rgba(0,255,65,0.3);transform:translateY(-2px);}
 .analyze-btn:disabled{opacity:0.6;cursor:not-allowed;}
-</style>
-</head>
-<body>
-.tab-panel.active{display:block;}
-</style>
 .results-section{max-width:1400px;margin:0 auto 3rem;padding:0 2rem;display:none;}
 .results-section.visible{display:block;}
 .result-header{background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:1.5rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
@@ -86,9 +85,6 @@ input[type="text"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 @media (max-width:768px){.nav-container{flex-direction:column;gap:1rem;}.nav-links{flex-wrap:wrap;}.hero{padding:2rem 1rem;}.hero h1{font-size:2.2rem;}.hero-stats{flex-direction:column;gap:1.5rem;}.tab-btn{font-size:0.8rem;padding:1rem;}.analysis-panel{padding:1.5rem;}.result-header{flex-direction:column;gap:1rem;}.score-badge{font-size:2rem;}}
-</style>
-</head>
-<body>
 <div class="matrix-bg" id="matrix-bg"></div>
 <nav>
 <div class="nav-container">
@@ -97,21 +93,21 @@ input[type="text"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 <a href="#email">Correo / Mensaje</a>
 <a href="#url">URL / Enlace</a>
 <a href="#sms">SMS / Smishing</a>
-<a href="#training">Capacitación</a>
-<a href="#analytics">Analíticas</a>
+<a href="#training">CapacitaciÃƒÂ³n</a>
+<a href="#analytics">AnalÃƒÂ­ticas</a>
 <a href="#siem">SIEM/SOAR</a>
 <a href="#dmarc">DMARC</a>
-<span class="nav-status" id="system-status">✓ SISTEMA OPERATIVO</span>
+<span class="nav-status" id="system-status">&#10003; SISTEMA OPERATIVO</span>
 </div>
 </div>
 </nav>
 <section class="hero">
-<h1>Detección de Phishing</h1>
-<p>Plataforma de ciberseguridad para PyMEs y usuarios. Análisis en tiempo real de correos, URLs, SMS y amenazas de suplantación de identidad.</p>
+<h1>DetecciÃƒÂ³n de Phishing</h1>
+<p>Plataforma de ciberseguridad para PyMEs y usuarios. AnÃƒÂ¡lisis en tiempo real de correos, URLs, SMS y amenazas de suplantaciÃƒÂ³n de identidad.</p>
 <div class="hero-stats">
 <div class="stat"><span class="stat-value" id="stat-threats">0</span><span class="stat-label">Amenazas detectadas</span></div>
 <div class="stat"><span class="stat-value" id="stat-risk">0%</span><span class="stat-label">Nivel de riesgo</span></div>
-<div class="stat"><span class="stat-value" id="stat-precision">99.8%</span><span class="stat-label">Precisión</span></div>
+<div class="stat"><span class="stat-value" id="stat-precision">99.8%</span><span class="stat-label">PrecisiÃƒÂ³n</span></div>
 </div>
 </section>
 <div class="tabs-container">
@@ -119,50 +115,49 @@ input[type="text"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 <button class="tab-btn active" data-tab="email">Correo / Mensaje</button>
 <button class="tab-btn" data-tab="url">URL / Enlace</button>
 <button class="tab-btn" data-tab="sms">SMS / Smishing</button>
-<button class="tab-btn" data-tab="training">Capacitación</button>
+<button class="tab-btn" data-tab="training">CapacitaciÃƒÂ³n</button>
 </div>
 </div>
 <div class="tab-panel active" id="email-panel">
 <div class="analysis-panel">
-<div class="form-group"><label class="form-label">CONTENIDO DEL CORREO O MENSAJE</label><textarea id="email-input" placeholder="Pega aquí el contenido del correo o mensaje sospechoso..."></textarea></div>
+<div class="form-group"><label class="form-label">CONTENIDO DEL CORREO O MENSAJE</label><textarea id="email-input" placeholder="Pega aquÃƒÂ­ el contenido del correo o mensaje sospechoso..."></textarea></div>
 <div class="example-btns"><button class="example-btn" onclick="fillExample('email','safe')">Correo seguro</button><button class="example-btn danger" onclick="fillExample('email','phishing')">Phishing bancario</button></div>
-<button class="analyze-btn" onclick="analyze('email')" id="email-analyze-btn">EJECUTAR ANÁLISIS</button>
+<button class="analyze-btn" onclick="analyze('email')" id="email-analyze-btn">EJECUTAR ANÃƒÂLISIS</button>
 </div>
 </div>
 <div class="tab-panel" id="url-panel">
 <div class="analysis-panel">
 <div class="form-group"><label class="form-label">URL O ENLACE WEB</label><input type="text" id="url-input" placeholder="https://ejemplo.com/pagina" value="https://ejemplo.com/pagina"></div>
 <div class="example-btns"><button class="example-btn" onclick="fillExample('url','safe')">URL segura</button><button class="example-btn danger" onclick="fillExample('url','phishing')">URL sospechosa</button></div>
-<button class="analyze-btn" onclick="analyze('url')" id="url-analyze-btn">EJECUTAR ANÁLISIS</button>
+<button class="analyze-btn" onclick="analyze('url')" id="url-analyze-btn">EJECUTAR ANÃƒÂLISIS</button>
 </div>
 </div>
 <div class="tab-panel" id="sms-panel">
 <div class="analysis-panel">
-<div class="form-group"><label class="form-label">MENSAJE SMS (SMISHING)</label><textarea id="sms-input" placeholder="Pega aquí el mensaje de texto sospechoso..."></textarea></div>
+<div class="form-group"><label class="form-label">MENSAJE SMS (SMISHING)</label><textarea id="sms-input" placeholder="Pega aquÃƒÂ­ el mensaje de texto sospechoso..."></textarea></div>
 <div class="example-btns"><button class="example-btn" onclick="fillExample('sms','safe')">SMS seguro</button><button class="example-btn danger" onclick="fillExample('sms','phishing')">SMS fraude</button></div>
-<button class="analyze-btn" onclick="analyze('sms')" id="sms-analyze-btn">EJECUTAR ANÁLISIS</button>
+<button class="analyze-btn" onclick="analyze('sms')" id="sms-analyze-btn">EJECUTAR ANÃƒÂLISIS</button>
 </div>
 </div>
 <div class="tab-panel" id="training-panel">
 <div class="analysis-panel">
-<h3 style="color:var(--accent);font-family:'JetBrains Mono',monospace;margin-bottom:1rem;text-transform:uppercase;">CAPACITACIÓN ANTI-PHISHING</h3>
-<p style="color:var(--text-dim);font-size:0.9rem;margin-bottom:1.5rem;">Aprende a identificar correos, URLs y mensajes SMS fraudulentos con módulos interactivos y cuestionarios.</p>
+<h3 style="color:var(--accent);font-family:'JetBrains Mono',monospace;margin-bottom:1rem;text-transform:uppercase;">CAPACITACIÃƒâ€œN ANTI-PHISHING</h3>
+<p style="color:var(--text-dim);font-size:0.9rem;margin-bottom:1.5rem;">Aprende a identificar correos, URLs y mensajes SMS fraudulentos con mÃƒÂ³dulos interactivos y cuestionarios.</p>
 <div class="training-grid">
-<div class="training-card" onclick="openModal('modal-training1')"><h4>Módulo 1: Correos falsos</h4><p>Cómo detectar suplantación de identidad en correos electrónicos.</p></div>
-<div class="training-card" onclick="openModal('modal-training2')"><h4>Módulo 2: URLs sospechosas</h4><p>Análisis de dominios y enlaces acortados peligrosos.</p></div>
-<div class="training-card" onclick="openModal('modal-training3')"><h4>Módulo 3: SMS / Smishing</h4><p>Identificación de mensajes de texto fraudulentos.</p></div>
-<div class="training-card" onclick="openModal('modal-training4')"><h4>Módulo 4: Ingeniería social</h4><p>Tácticas de manipulación y urgencia falsa.</p></div>
+<div class="training-card" onclick="openModal('modal-training1')"><h4>MÃƒÂ³dulo 1: Correos falsos</h4><p>CÃƒÂ³mo detectar suplantaciÃƒÂ³n de identidad en correos electrÃƒÂ³nicos.</p></div>
+<div class="training-card" onclick="openModal('modal-training2')"><h4>MÃƒÂ³dulo 2: URLs sospechosas</h4><p>AnÃƒÂ¡lisis de dominios y enlaces acortados peligrosos.</p></div>
+<div class="training-card" onclick="openModal('modal-training3')"><h4>MÃƒÂ³dulo 3: SMS / Smishing</h4><p>IdentificaciÃƒÂ³n de mensajes de texto fraudulentos.</p></div>
+<div class="training-card" onclick="openModal('modal-training4')"><h4>MÃƒÂ³dulo 4: IngenierÃƒÂ­a social</h4><p>TÃƒÂ­cticas de manipulaciÃƒÂ³n y urgencia falsa.</p></div>
 </div>
 <div class="quiz" id="quiz-section" style="margin-top:2rem;">
-<h4>CUESTIONARIO RÁPIDO</h4>
-<p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">¿Este correo es phishing?</p>
-<p style="color:var(--text);font-size:0.85rem;margin-bottom:1rem;">Estimado cliente, su cuenta será suspendida. Haga clic aquí: http://paypal-verify.xyz/login</p>
+<h4>CUESTIONARIO RÃPIDO</h4>
+<p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">Ã‚Â¿Este correo es phishing?</p>
+<p style="color:var(--text);font-size:0.85rem;margin-bottom:1rem;">Estimado cliente, su cuenta serÃƒÂ¡ suspendida. Haga clic aquÃƒÂ­: http://paypal-verify.xyz/login</p>
 <div class="quiz-options">
-<div class="quiz-option" onclick="checkQuiz(this, false)">Sí, es phishing</div>
+<div class="quiz-option" onclick="checkQuiz(this, false)">SÃƒÂ­, es phishing</div>
 <div class="quiz-option" onclick="checkQuiz(this, true)">No, es seguro</div>
 </div>
 <div class="quiz-feedback" id="quiz-feedback"></div>
-</div>
 </div>
 </div>
 <div class="results-section" id="results-section">
@@ -173,39 +168,39 @@ input[type="text"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 </div>
 <div style="text-align:right;">
 <div style="font-size:0.85rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">Nivel de riesgo</div>
-<div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 300 100"><defs><linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00ff41"/><stop offset="70%" stop-color="#ffaa00"/><stop offset="100%" stop-color="#ff003c"/></linearGradient></defs><rect x="20" y="25" width="260" height="50" rx="25" fill="rgba(5,5,5,0.5)" stroke="rgba(5,5,5,0.3)"/><rect x="20" y="25" width="260" height="50" rx="25" fill="none" stroke="#00ff41" stroke-width="12" stroke-dasharray="260" stroke-dashoffset="0"/><rect x="20" y="25" width="260" height="50" rx="25" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-dasharray="260" stroke-dashoffset="0" id="gauge-color"/><text x="150" y="62" text-anchor="middle" fill="#e0e0e0" font-family="'JetBrains Mono',monospace" font-size="10">0% → 100%</text></svg></div>
+<div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 300 100"><defs><linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00ff41"/><stop offset="70%" stop-color="#ffaa00"/><stop offset="100%" stop-color="#ff003c"/></linearGradient></defs><rect x="20" y="25" width="260" height="50" rx="25" fill="rgba(5,5,5,0.5)" stroke="rgba(5,5,5,0.3)"/><rect x="20" y="25" width="260" height="50" rx="25" fill="none" stroke="#00ff41" stroke-width="12" stroke-dasharray="260" stroke-dashoffset="0"/><rect x="20" y="25" width="260" height="50" rx="25" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-dasharray="260" stroke-dashoffset="0" id="gauge-color"/><text x="150" y="62" text-anchor="middle" fill="#e0e0e0" font-family="'JetBrains Mono',monospace" font-size="10">0% â†’ 100%</text></svg></div>
 </div>
 </div>
 <div class="flags-section"><h3>BANDERAS DE ALERTA DETECTADAS</h3><div id="flags-el"></div></div>
-<div class="recommendation-section"><h3>RECOMENDACIÓN DE ACCIÓN</h3><div class="recommendation-box"><h4 id="rec-el"></h4></div></div>
+<div class="recommendation-section"><h3>RECOMENDACIÃƒâ€œN DE ACCIÃƒâ€œN</h3><div class="recommendation-box"><h4 id="rec-el"></h4></div></div>
 </div>
-<div id="modal-training1" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training1')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Módulo 1: Correos falsos</h3><p style="color:var(--text);margin-bottom:1rem;">Aprende a señalar: remitente desconocido, urgencia falsa, errores gramaticales, enlaces que no coinciden con el dominio real.</p><div style="background:rgba(255,0,60,0.1);border-left:3px solid var(--danger);padding:1rem;margin-top:1rem;"><strong>Ejemplo:</strong> "Su cuenta será cerrada en 24 horas" + enlace acortado = Phishing.</div></div></div>
-<div id="modal-training2" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training2')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Módulo 2: URLs sospechosas</h3><p style="color:var(--text);margin-bottom:1rem;">Verifica siempre el dominio antes de hacer clic. Dominios .xyz, .top, .click son de alto riesgo. Busca https y el candado.</p></div></div>
-<div id="modal-training3" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training3')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Módulo 3: SMS / Smishing</h3><p style="color:var(--text);margin-bottom:1rem;">Los bancos nunca piden claves por SMS. Desconfía de premios inesperados y enlaces acortados en mensajes de texto.</p></div></div>
-<div id="modal-training4" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training4')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Módulo 4: Ingeniería social</h3><p style="color:var(--text);margin-bottom:1rem;">Urgencia, miedo, autoridad y codicia son tácticas comunes. Tómatelo tiempo antes de actuar.</p></div></div>
-<div id="modal-analytics" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-analytics')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Analíticas en Tiempo Real</h3><p style="color:var(--text-dim);margin-bottom:1rem;">Visualización detallada de amenazas detectadas, tendencias de phishing y distribución por tipo de ataque.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Ver métricas</button></div></div>
-<div id="modal-training" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Simulación de Capacitación</h3><p style="color:var(--text-dim);margin-bottom:1rem;">Plataforma de phishing simulado para entrenar empleados con reportes de rendimiento.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Configurar simulación</button></div></div>
-<div id="modal-siem" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-siem')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Integración SIEM/SOAR</h3><p style="color:var(--text-dim);margin-bottom:1rem;">Conecta con Splunk, Elastic, Sentinel. Automatiza respuestas SOAR ante incidentes de phishing.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Probar integración</button></div></div>
-<div id="modal-dmarc" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-dmarc')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">Verificación DMARC</h3><p style="color:var(--text-dim);margin-bottom:1rem;">Validación avanzada de dominio con registros DMARC, SPF y DKIM. Detecta suplantación de dominio.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Verificar dominio</button></div></div>
-<div class="policy-panel"><h3>POLÍTICAS Y AJUSTES DE USUARIO</h3><div class="form-group"><label class="form-label">SENSIBILIDAD DEL FILTRO</label><select style="width:100%;background:#000;border:1px solid var(--border);color:var(--text);padding:0.75rem;border-radius:4px;font-family:'JetBrains Mono',monospace;"><option>Estándar</option><option>Alta</option><option>Máxima</option></select></div><div class="form-group"><label class="form-label">DOMINIOS EN LISTA BLANCA</label><input type="text" style="width:100%;background:#000;border:1px solid var(--border);color:var(--text);padding:0.75rem;border-radius:4px;font-family:'JetBrains Mono',monospace;" placeholder="ejemplo.com, banco-oficial.com"></div><div class="form-group"><label class="form-label">NOTIFICACIONES AL CORREO CORPORATIVO</label><input type="text" style="width:100%;background:#000;border:1px solid var(--border);color:var(--text);padding:0.75rem;border-radius:4px;font-family:'JetBrains Mono',monospace;" placeholder="admin@empresa.com"></div><button class="analyze-btn" style="width:auto;margin-top:1rem;">Guardar configuración</button></div>
+<div id="modal-training1" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training1')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">MÃƒÂ³dulo 1: Correos falsos</h3><p style="color:var(--text);margin-bottom:1rem;">Aprende a seÃƒÂ±alar: remitente desconocido, urgencia falsa, errores gramaticales, enlaces que no coinciden con el dominio real.</p><div style="background:rgba(255,0,60,0.1);border-left:3px solid var(--danger);padding:1rem;margin-top:1rem;"><strong>Ejemplo:</strong> "Su cuenta serÃƒÂ¡ cerrada en 24 horas" + enlace acortado = Phishing.</div></div></div>
+<div id="modal-training2" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training2')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">MÃƒÂ³dulo 2: URLs sospechosas</h3><p style="color:var(--text);margin-bottom:1rem;">Verifica siempre el dominio antes de hacer clic. Dominios .xyz, .top, .click son de alto riesgo. Busca https y el candado.</p></div></div>
+<div id="modal-training3" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training3')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">MÃƒÂ³dulo 3: SMS / Smishing</h3><p style="color:var(--text);margin-bottom:1rem;">Los bancos nunca piden claves por SMS. DesconfÃša de premios inesperados y enlaces acortados en mensajes de texto.</p></div></div>
+<div id="modal-training4" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training4')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">MÃƒÂ³dulo 4: IngenierÃƒÂ­a social</h3><p style="color:var(--text);margin-bottom:1rem;">Urgencia, miedo, autoridad y codicia son tÃƒÂ­cticas comunes. TÃƒÂ³mate tiempo antes de actuar.</p></div></div>
+<div id="modal-analytics" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-analytics')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">AnalÃƒÂ­ticas en Tiempo Real</h3><p style="color:var(--text-dim);margin-bottom:1rem;">VisualizaciÃƒÂ³n detallada de amenazas detectadas, tendencias de phishing y distribuciÃƒÂ³n por tipo de ataque.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Ver mÃƒÂ©tricas</button></div></div>
+<div id="modal-training" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-training')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">SimulaciÃƒÂ³n de CapacitaciÃƒÂ³n</h3><p style="color:var(--text-dim);margin-bottom:1rem;">Plataforma de phishing simulado para entrenar empleados con reportes de rendimiento.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Configurar simulaciÃƒÂ³n</button></div></div>
+<div id="modal-siem" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-siem')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">IntegraciÃƒÂ³n SIEM/SOAR</h3><p style="color:var(--text-dim);margin-bottom:1rem;">Conecta con Splunk, Elastic, Sentinel. Automatiza respuestas SOAR ante incidentes de phishing.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Probar integraciÃƒÂ³n</button></div></div>
+<div id="modal-dmarc" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-dmarc')">&times;</button><h3 style="color:var(--accent);margin-bottom:1rem;">VerificaciÃƒÂ³n DMARC</h3><p style="color:var(--text-dim);margin-bottom:1rem;">ValidaciÃƒÂ³n avanzada de dominio con registros DMARC, SPF y DKIM. Detecta suplantaciÃƒÂ³n de dominio.</p><button class="analyze-btn" style="width:auto;margin-top:1rem;">Verificar dominio</button></div></div>
+<div class="policy-panel"><h3>POLÃTICAS Y AJUSTES DE USUARIO</h3><div class="form-group"><label class="form-label">SENSIBILIDAD DEL FILTRO</label><select style="width:100%;background:#000;border:1px solid var(--border);color:var(--text);padding:0.75rem;border-radius:4px;font-family:'JetBrains Mono',monospace;"><option>EstÃƒÂ¡ndar</option><option>Alta</option><option>MÃƒÂ¡xima</option></select></div><div class="form-group"><label class="form-label">DOMINIOS EN LISTA BLANCA</label><input type="text" style="width:100%;background:#000;border:1px solid var(--border);color:var(--text);padding:0.75rem;border-radius:4px;font-family:'JetBrains Mono',monospace;" placeholder="ejemplo.com, banco-oficial.com"></div><div class="form-group"><label class="form-label">NOTIFICACIONES AL CORREO CORPORATIVO</label><input type="text" style="width:100%;background:#000;border:1px solid var(--border);color:var(--text);padding:0.75rem;border-radius:4px;font-family:'JetBrains Mono',monospace;" placeholder="admin@empresa.com"></div><button class="analyze-btn" style="width:auto;margin-top:1rem;">Guardar configuraciÃƒÂ³n</button></div>
 <div class="history-panel"><h3>HISTORIAL DE AMENAZAS NEUTRALIZADAS</h3><div id="history-list" style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-dim);max-height:200px;overflow-y:auto;"></div><button class="analyze-btn" style="width:auto;margin-top:1rem;" onclick="exportReport()">Exportar reporte (CSV)</button></div>
 <footer style="background:var(--bg-panel);border-top:1px solid var(--border);padding:2rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-dim);margin-top:2rem;">
-ANTIPHISH AI — SISTEMA DE DETECCIÓN DE AMENAZAS CIBERNÉTICAS<br>
-Términos de Servicio • Política de Privacidad • Cumplimiento Ley N° 29733 de Protección de Datos Personales<br>
-Soporte técnico: soporte@antiphish.ai • Cifrado de extremo a extremo • Sin almacenamiento de datos
+ANTIPHISH AI &mdash; SISTEMA DE DETECCI&Oacute;N DE AMENAZAS CIBERN&Eacute;TICAS<br>
+T&eacute;rminos de Servicio &bull; PolÃƒÂ­tica de Privacidad &bull; Cumplimiento Ley NÃ‚Â° 29733 de ProtecciÃƒÂ³n de Datos Personales<br>
+Soporte tÃƒÂ©cnico: soporte@antiphish.ai &bull; Cifrado de extremo a extremo &bull; Sin almacenamiento de datos
 </footer>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 const matrix=document.getElementById('matrix-bg');
 if(matrix){for(let i=0;i<80;i++){const s=document.createElement('span');s.textContent='01';s.style.cssText='position:absolute;font-family:\'JetBrains Mono\',monospace;font-size:14px;color:#00ff41;opacity:0.3;animation:spin '+(Math.random()*4+2)+'s infinite linear;';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*4+'s';matrix.appendChild(s);}}
 document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab+'-panel').classList.add('active');});});
-const examples={email:{safe:'De: Banco Central\nAsunto: Verificación\nHola cliente,\nConfirme su identidad:\nhttps://banco-central.com/verify\nSaludos.',phishing:'Asunto: URGENTE - Cuenta suspendida\nDetectamos actividad sospechosa. Reactive aquí:\nhttp://paypal-security-update.xyz/login'},url:{safe:'https://google.com',phishing:'http://paypal-security-update.xyz/login'},sms:{safe:'Tu pedido ha sido enviado por MercadoLibre.',phishing:'¡Felicitaciones! Ganaste un iPhone. Reclama aquí: http://bit.ly/premio-falso'}};
+const examples={email:{safe:'De: Banco Central\nAsunto: VerificaciÃƒÂ³n\nHola cliente,\nConfirme su identidad:\nhttps://banco-central.com/verify\nSaludos.',phishing:'Asunto: URGENTE - Cuenta suspendida\nDetectamos actividad sospechosa. Reactive aquÃƒÂ­:\nhttp://paypal-security-update.xyz/login'},url:{safe:'https://google.com',phishing:'http://paypal-security-update.xyz/login'},sms:{safe:'Tu pedido ha sido enviado por MercadoLibre.',phishing:'Ã‚Â¡Felicitaciones! Ganaste un iPhone. Reclama aquÃƒÂ­: http://bit.ly/premio-falso'}};
 window.fillExample=(type,key)=>{const inp=document.getElementById(type+'-input');if(examples[type]&&examples[type][key])inp.value=examples[type][key];inp.focus();};
-window.analyze=async(type)=>{const btn=document.getElementById(type+'-analyze-btn');const inp=document.getElementById(type+'-input');const loading=document.getElementById('loading');const results=document.getElementById('results-section');btn.disabled=true;loading.style.display='flex';try{let content='';if(type==='email')content=inp.value;else if(type==='url')content=inp.value;else if(type==='sms')content=inp.value;if(!content.trim()){alert('Introduce contenido para analizar.');return;}const result=await new Promise(resolve=>setTimeout(()=>{const lower=content.toLowerCase();const flags=[];const patterns=[/login|verif|credential|password|account|cuenta|banco|dgito|paypal|apple|amazon|microsoft|dropbox|github|linkedin|office365|azure|slack|zoom|facebook|instagram|twitter|gmail|yahoo|suspend|cierre|24 horas|urgente|premio|ganaste|reclama/i,/http[s]?:\/\/[a-z0-9-]+\.(xyz|top|online|club|click|work|loan|crypto|win|bet)\//i,/bit\.ly|tinyurl|short\.link|acortado/i];patterns.forEach(p=>{if(p.test(lower))flags.push('Patrón de phishing detectado');});let score=0;flags.forEach(()=>score+=15);score+=20;let level={level:'SEGURO',cls:'safe',color:'#00ff41'};if(score>=50&&score<=69)level={level:'ADVERTENCIA',cls:'warning',color:'#ffaa00'};else if(score>=70)level={level:'PELIGRO',cls:'danger',color:'#ff003c'};resolve({score:Math.min(100,score),flags,level});},1200));document.getElementById('score-el').textContent=result.score+'%';document.getElementById('score-el').className='score-badge '+(result.score<=30?'score-safe':result.score<=69?'score-warning':'score-danger');document.getElementById('level-el').textContent=result.level;document.getElementById('level-el').className='level-badge level-'+result.level.toLowerCase();const gauge=document.getElementById('gauge-color');if(gauge){const arc=260;const off=arc-(result.score/100)*arc;gauge.style.stroke=result.level.toLowerCase()==='safe'?'#00ff41':result.level.toLowerCase()==='warning'?'#ffaa00':'#ff003c';gauge.style.strokeDashoffset=off;}const fl=document.getElementById('flags-el');fl.innerHTML='';if(result.flags&&result.flags.length>0){result.flags.forEach(f=>{const d=document.createElement('div');d.className='flag-item';d.textContent='! '+f;fl.appendChild(d);});}else{const d=document.createElement('div');d.className='flag-item flag-safe';d.textContent='OK No se detectaron banderas de alerta.';fl.appendChild(d);}const recs={safe:'El contenido no muestra indicios evidentes de phishing.',warning:'Este contenido presenta señales de alerta. No hagas clic en enlaces.',danger:'Peligro! Intento de phishing. No interactúes con el contenido.'};document.getElementById('rec-el').textContent=recs[result.level.toLowerCase()];results.classList.add('visible');results.scrollIntoView({behavior:'smooth'});}catch(e){console.error(e);alert('Error al analizar: '+e.message);}finally{loading.style.display='none';btn.disabled=false;}};
-window.checkQuiz=(el,correct)=>{const fb=document.getElementById('quiz-feedback');fb.style.display='block';if(correct){fb.className='quiz-feedback correct';fb.textContent='Correcto! Ese mensaje es phishing: urgencia falsa y enlace sospechoso.';}else{fb.className='quiz-feedback wrong';fb.textContent='Incorrecto. Ese mensaje tiene señales de phishing.';}};
+window.analyze=async(type)=>{const btn=document.getElementById(type+'-analyze-btn');const inp=document.getElementById(type+'-input');const loading=document.getElementById('loading');const results=document.getElementById('results-section');btn.disabled=true;loading.style.display='flex';try{let content='';if(type==='email')content=inp.value;else if(type==='url')content=inp.value;else if(type==='sms')content=inp.value;if(!content.trim()){alert('Introduce contenido para analizar.');return;}const result=await new Promise(resolve=>setTimeout(()=>{const lower=content.toLowerCase();const flags=[];const patterns=[/login|verif|credential|password|account|cuenta|banco|dgito|paypal|apple|amazon|microsoft|dropbox|github|linkedin|office365|azure|slack|zoom|facebook|instagram|twitter|gmail|yahoo|suspend|cierre|24 horas|urgente|premio|ganaste|reclama/i,/http[s]?:\/\/[a-z0-9-]+\.(xyz|top|online|club|click|work|loan|crypto|win|bet)\//i,/bit\.ly|tinyurl|short\.link|acortado/i];patterns.forEach(p=>{if(p.test(lower))flags.push('PatrÃƒÂ³n de phishing detectado');});let score=0;flags.forEach(()=>score+=15);score+=20;let level={level:'SEGURO',cls:'safe',color:'#00ff41'};if(score>=50&&score<=69)level={level:'ADVERTENCIA',cls:'warning',color:'#ffaa00'};else if(score>=70)level={level:'PELIGRO',cls:'danger',color:'#ff003c'};resolve({score:Math.min(100,score),flags,level});},1200));document.getElementById('score-el').textContent=result.score+'%';document.getElementById('score-el').className='score-badge '+(result.score<=30?'score-safe':result.score<=69?'score-warning':'score-danger');document.getElementById('level-el').textContent=result.level;document.getElementById('level-el').className='level-badge level-'+result.level.toLowerCase();const gauge=document.getElementById('gauge-color');if(gauge){const arc=260;const off=arc-(result.score/100)*arc;gauge.style.stroke=result.level.toLowerCase()==='safe'?'#00ff41':result.level.toLowerCase()==='warning'?'#ffaa00':'#ff003c';gauge.style.strokeDashoffset=off;}const fl=document.getElementById('flags-el');fl.innerHTML='';if(result.flags&&result.flags.length>0){result.flags.forEach(f=>{const d=document.createElement('div');d.className='flag-item';d.textContent='! '+f;fl.appendChild(d);});}else{const d=document.createElement('div');d.className='flag-item flag-safe';d.textContent='OK No se detectaron banderas de alerta.';fl.appendChild(d);}const recs={safe:'El contenido no muestra indicios evidentes de phishing.',warning:'Este contenido presenta seÃƒÂ±ales de alerta. No hagas clic en enlaces.',danger:'Peligro! Intento de phishing. No interactÃƒÂºes con el contenido.'};document.getElementById('rec-el').textContent=recs[result.level.toLowerCase()];results.classList.add('visible');results.scrollIntoView({behavior:'smooth'});}catch(e){console.error(e);alert('Error al analizar: '+e.message);}finally{loading.style.display='none';btn.disabled=false;}};
+window.checkQuiz=(el,correct)=>{const fb=document.getElementById('quiz-feedback');fb.style.display='block';if(correct){fb.className='quiz-feedback correct';fb.textContent='Correcto! Ese mensaje es phishing: urgencia falsa y enlace sospechoso.';}else{fb.className='quiz-feedback wrong';fb.textContent='Incorrecto. Ese mensaje tiene seÃƒÂ±ales de phishing.';}};
 window.openModal=(id)=>{document.getElementById(id).style.display='flex';};
 window.closeModal=(id)=>{document.getElementById(id).style.display='none';};
-window.exportReport=()=>{alert('Reporte exportado (simulado). En versión real se descargará CSV/PDF.');};
+window.exportReport=()=>{alert('Reporte exportado (simulado). En versiÃƒÂ³n real se descargarÃƒÂ¡ CSV/PDF.');};
 document.getElementById('email-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();analyze('email');}});
 document.getElementById('url-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();analyze('url');}});
 document.getElementById('sms-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();analyze('sms');}});
@@ -214,3 +209,4 @@ setInterval(()=>{const st=document.getElementById('system-status');if(st)st.styl
 </script>
 </body>
 </html>
+</div>
