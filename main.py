@@ -1,7 +1,7 @@
-"""
+﻿"""
 Servidor FastAPI para AntiPhish AI.
 Expone endpoints para analizar correos/mensajes y URLs mediante el motor
-de detector.py, y sirve el frontend estático.
+de detector.py, y sirve el frontend est├ítico.
 """
 
 from pathlib import Path
@@ -17,12 +17,12 @@ BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(title="AntiPhish AI", version="1.0.0")
 
-# Montar archivos estáticos
+# Montar archivos est├íticos
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
 
 # ---------------------------------------------------------------------------
-# Modelos de petición
+# Modelos de petici├│n
 # ---------------------------------------------------------------------------
 
 class AnalyzeRequest(BaseModel):
@@ -52,3 +52,4 @@ async def analyze_url_endpoint(payload: AnalyzeRequest):
     """Analiza una URL / enlace web."""
     result = analyze_url(payload.content)
     return JSONResponse(content=result)
+
