@@ -56,7 +56,7 @@ def _score_level(score: int) -> str:
     """Convierte un puntaje numérico en un nivel textual."""
     if score <= 30:
         return "SEGURO"
-    if score <= 69:
+    if score <= 60:
         return "SOSPECHOSO"
     return "ALTO RIESGO / PHISHING"
 
@@ -100,6 +100,7 @@ def analyze_email(text: str) -> dict[str, Any]:
         "deceptive_links": [],
         "suspicious_urls": [],
         "suspicious_url_hits": [],
+        "url_assessments": [],
     }
 
     text_lower = text.lower()
@@ -137,6 +138,12 @@ def analyze_email(text: str) -> dict[str, Any]:
     found_urls = url_pattern.findall(text)
     details["suspicious_urls"] = found_urls
     for url in found_urls:
+        url_result = analyze_url(url)
+        details["url_assessments"].append({
+            "url": url,
+            "risk_score": url_result["risk_score"],
+            "level": url_result["level"],
+        })
         url_lower = url.lower()
         # Verificar si la URL usa un acortador
         if any(s in url_lower for s in ["bit.ly", "tinyurl", "t.co", "goo.gl"]):
@@ -154,6 +161,7 @@ def analyze_email(text: str) -> dict[str, Any]:
     score += min(len(details["cta_hits"]) * 8, 25)
     score += min(len(details["deceptive_links"]) * 10, 20)
     score += min(len(details["suspicious_url_hits"]) * 35, 70)
+    score = max(score, max((item["risk_score"] for item in details["url_assessments"]), default=0))
     score = min(score, 100)
 
     level = _score_level(score)
@@ -185,6 +193,7 @@ def analyze_url(url: str) -> dict[str, Any]:
         "suspicious_tld": False,
         "homograph_risk": False,
         "brand_in_domain": False,
+        "brand_impersonation": False,
         "special_chars": False,
         "domain": "",
         "tld": "",
@@ -244,6 +253,7 @@ def analyze_url(url: str) -> dict[str, Any]:
             details["brand_in_domain"] = True
             main_domain = host_part.split(".")[-2] if subdomain_count >= 1 else host_part.split(".")[0]
             if brand != main_domain.lower():
+                details["brand_impersonation"] = True
                 flags.append(f"La marca '{brand}' aparece en el dominio pero no como titular principal (posible suplantación).")
             break
 
@@ -261,8 +271,10 @@ def analyze_url(url: str) -> dict[str, Any]:
         score += 25
     if details["special_chars"]:
         score += 10
-    if details["brand_in_domain"]:
-        score += 15
+    if details["brand_impersonation"]:
+        score += 45
+    elif details["brand_in_domain"]:
+        score += 10
 
     score = min(score, 100)
     level = _score_level(score)
