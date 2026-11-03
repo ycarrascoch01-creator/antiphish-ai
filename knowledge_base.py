@@ -1,5 +1,6 @@
 import re
 import sqlite3
+import unicodedata
 from typing import Any
 
 
@@ -8,7 +9,7 @@ KNOWLEDGE_ITEMS = (
         "deteccion",
         "La urgencia no demuestra legitimidad",
         "urgente urgencia plazo inmediato bloqueo suspendida cuenta pago premio",
-        "Los mensajes que presionan para actuar rapido, amenazan con cerrar una cuenta o prometen premios inesperados son senales de alerta. Verifica la solicitud por un canal que ya conozcas.",
+        "Los mensajes que presionan para actuar rápido, amenazan con cerrar una cuenta o prometen premios inesperados son señales de alerta. Verifica la solicitud por un canal que ya conozcas.",
         "Federal Trade Commission",
         "https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams",
     ),
@@ -16,7 +17,7 @@ KNOWLEDGE_ITEMS = (
         "deteccion",
         "Comprueba el destino de cada enlace",
         "enlace url dominio sitio web login iniciar sesion credenciales acortador",
-        "No confies solo en el nombre visible de un enlace. Revisa el dominio completo y, si tienes dudas, abre el sitio oficial escribiendo su direccion conocida en el navegador.",
+        "No confíes solo en el nombre visible de un enlace. Revisa el dominio completo y, si tienes dudas, abre el sitio oficial escribiendo su dirección conocida en el navegador.",
         "Google Gmail Help",
         "https://support.google.com/mail/answer/8253?hl=es",
     ),
@@ -24,7 +25,7 @@ KNOWLEDGE_ITEMS = (
         "deteccion",
         "Desconfia de solicitudes inesperadas de datos",
         "contrasena password codigo verificacion tarjeta banco pago informacion personal financiera",
-        "No entregues contrasenas, codigos de un solo uso ni datos financieros desde un enlace recibido por mensaje. Contacta a la organizacion usando un telefono o sitio que ya sepas que es autentico.",
+        "No entregues contraseñas, códigos de un solo uso ni datos financieros desde un enlace recibido por mensaje. Contacta a la organización usando un teléfono o sitio que ya sepas que es auténtico.",
         "Federal Trade Commission",
         "https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams",
     ),
@@ -38,17 +39,17 @@ KNOWLEDGE_ITEMS = (
     ),
     (
         "prevencion",
-        "Activa la autenticacion multifactor",
+        "Activa la autenticación multifactor",
         "mfa multifactor autenticacion dos factores codigo cuenta contrasena",
-        "Activa autenticacion multifactor en correo, banca y cuentas importantes. Si una contrasena queda expuesta, el segundo factor puede impedir el acceso no autorizado.",
+        "Activa autenticación multifactor en correo, banca y cuentas importantes. Si una contraseña queda expuesta, el segundo factor puede impedir el acceso no autorizado.",
         "Federal Trade Commission",
         "https://consumer.ftc.gov/articles/use-two-factor-authentication-protect-your-accounts",
     ),
     (
         "respuesta",
-        "Si ingresaste tus credenciales, cambia la contrasena",
+        "Si ingresaste tus credenciales, cambia la contraseña",
         "respondi credenciales contrasena password cuenta robada comprometida acceso",
-        "Cambia de inmediato la contrasena desde el sitio o la aplicacion oficial, cierra sesiones desconocidas y activa MFA. Si reutilizaste esa contrasena, cambiala tambien en los otros servicios.",
+        "Cambia de inmediato la contraseña desde el sitio o la aplicación oficial, cierra sesiones desconocidas y activa MFA. Si reutilizaste esa contraseña, cámbiala también en los otros servicios.",
         "Federal Trade Commission",
         "https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams",
     ),
@@ -56,7 +57,7 @@ KNOWLEDGE_ITEMS = (
         "respuesta",
         "Reporta el mensaje sospechoso",
         "reportar denunciar correo email sms mensaje phishing estafa",
-        "Reporta el mensaje desde las herramientas de tu proveedor de correo o telefono y ante el organismo de proteccion al consumidor o equipo nacional de respuesta a incidentes de tu pais. No reenvies el enlace a otras personas.",
+        "Reporta el mensaje desde las herramientas de tu proveedor de correo o teléfono y ante el organismo de protección al consumidor o equipo nacional de respuesta a incidentes de tu país. No reenvíes el enlace a otras personas.",
         "NCSC UK",
         "https://www.ncsc.gov.uk/collection/phishing-scams",
     ),
@@ -64,15 +65,15 @@ KNOWLEDGE_ITEMS = (
         "respuesta",
         "Si abriste un archivo, revisa el dispositivo",
         "abri archivo adjunto descargue malware virus dispositivo computadora movil",
-        "Actualiza el software de seguridad y ejecuta un analisis del dispositivo. Si detectas actividad sospechosa, desconectalo de la red y solicita ayuda al equipo de soporte correspondiente.",
+        "Actualiza el software de seguridad y ejecuta un análisis del dispositivo. Si detectas actividad sospechosa, desconéctalo de la red y solicita ayuda al equipo de soporte correspondiente.",
         "Federal Trade Commission",
         "https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams",
     ),
     (
         "deteccion",
-        "La suplantacion puede imitar a una persona conocida",
+        "La suplantación puede imitar a una persona conocida",
         "suplantacion marca banco empresa remitente identidad familiar colega compania",
-        "Un logotipo, nombre de empresa o nombre de una persona conocida no autentica el mensaje. Comprueba cuidadosamente la direccion del remitente y confirma solicitudes inusuales por otro canal.",
+        "Un logotipo, nombre de empresa o nombre de una persona conocida no autentica el mensaje. Comprueba cuidadosamente la dirección del remitente y confirma solicitudes inusuales por otro canal.",
         "Google Gmail Help",
         "https://support.google.com/mail/answer/8253?hl=es",
     ),
@@ -88,7 +89,7 @@ KNOWLEDGE_ITEMS = (
         "deteccion",
         "El phishing tambien llega por SMS y llamadas",
         "sms smishing mensaje texto llamada telefono enlace premio codigo",
-        "Los intentos de fraude pueden llegar por correo, SMS, sitios web, anuncios o llamadas. No uses numeros ni enlaces incluidos en el mensaje para verificar una solicitud.",
+        "Los intentos de fraude pueden llegar por correo, SMS, sitios web, anuncios o llamadas. No uses números ni enlaces incluidos en el mensaje para verificar una solicitud.",
         "NCSC UK",
         "https://www.ncsc.gov.uk/collection/phishing-scams",
     ),
@@ -123,19 +124,20 @@ _DATABASE = _create_database()
 
 
 def search_knowledge(query: str = "", limit: int = 5) -> list[dict[str, Any]]:
+    normalized_query = unicodedata.normalize("NFKD", query).encode("ascii", "ignore").decode("ascii")
     tokens = {
         token
-        for token in re.findall(r"[a-z0-9áéíóúñ]+", query.lower())
+        for token in re.findall(r"[a-z0-9]+", normalized_query.lower())
         if len(token) > 2
     }
     rows = _DATABASE.execute("SELECT * FROM knowledge").fetchall()
     ranked: list[tuple[int, sqlite3.Row]] = []
 
     for row in rows:
-        searchable = " ".join(
+        searchable = unicodedata.normalize("NFKD", " ".join(
             str(row[column])
             for column in ("category", "title", "keywords", "guidance")
-        ).lower()
+        )).encode("ascii", "ignore").decode("ascii").lower()
         relevance = sum(token in searchable for token in tokens)
         if not tokens or relevance:
             ranked.append((relevance, row))
