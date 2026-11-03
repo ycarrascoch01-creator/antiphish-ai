@@ -37,7 +37,7 @@ class AnalyzeRequest(BaseModel):
 async def dashboard():
     """Sirve el dashboard principal."""
     html_path = BASE_DIR / "templates" / "index.html"
-    return HTMLResponse(content=html_path.read_text(encoding="utf-8"), status_code=200)
+    return HTMLResponse(content=html_path.read_text(encoding="utf-16"), status_code=200)
 
 
 @app.post("/analyze/email")
